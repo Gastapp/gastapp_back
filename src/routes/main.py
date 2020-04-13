@@ -14,6 +14,12 @@ def get_expenses():
     result = expensesController.get_all()
     return str(list(result))
 
+@app.route('/expense/get_by/category', methods=['POST'])
+def get_by_category():
+    category = request.get_json()['category']
+    result = expensesController.get_by_category(category)
+    return str(list(result))
+
 
 @app.route('/expense/add', methods=['POST'])
 def save_expense():

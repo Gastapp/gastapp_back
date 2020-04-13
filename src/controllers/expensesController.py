@@ -8,3 +8,8 @@ def save(expense):
 
 def get_all():
     return collection.find({})
+
+
+def get_by_category(category):
+    return collection.find({"category": category})
+
