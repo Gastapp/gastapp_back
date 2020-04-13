@@ -11,12 +11,17 @@ def hello():
 
 @app.route('/gastos', methods=['GET'])
 def get_expenses():
-    return expensesController.get_all()
+    result = expensesController.get_all()
+    return str(list(result))
 
 
-@app.route('/gastos', methods=['POST'])
+@app.route('/gastoss', methods=['POST'])
 def save_expense():
-    if not request.is_json:
-        raise ImputNotJsonException
-    expensesController.save(request.get_json)
-    return 200
+    print("DALEEEEE")
+    print("Data: ", format(request.get_json(force=True)))
+    expensesController.save(request.get_json(force=True))
+    return "200"
+
+
+if __name__ == "__main__":
+    app.run()
