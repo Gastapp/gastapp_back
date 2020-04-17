@@ -10,10 +10,12 @@ def hello():
     return "Hola mundo"
 
 
-@app.route('/expense/get_all', methods=['GET'])
+@app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
-    result = expensesController.get_all()
+    id_user = request.args.get('id_user')
+    result = expensesController.get_all_user_expenses(id_user)
     return dumps(result)
+
 
 @app.route('/expense/get_by/category', methods=['POST'])
 def get_by_category():

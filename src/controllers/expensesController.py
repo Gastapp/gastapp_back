@@ -6,8 +6,8 @@ def save(expense):
     collection.insert_one(expense)
 
 
-def get_all():
-    return collection.find({})
+def get_all_user_expenses(id_user):
+    return collection.find({"id_user": id_user})
 
 
 def get_by_category(category):
