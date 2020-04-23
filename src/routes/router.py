@@ -1,9 +1,10 @@
 from flask import Flask, request
 from exceptions import ImputNotJsonException
-from src.controllers import expensesController
+from src.controllers import expensesController, categoriesController
 from bson.json_util import dumps
 
 app = Flask(__name__)
+
 
 @app.route("/")
 def hello():
@@ -17,17 +18,17 @@ def get_expenses():
     return dumps(result)
 
 
-@app.route('/expense/get_by/category', methods=['POST'])
+@app.route('/expense/get_by/category/', methods=['GET'])
 def get_by_category():
-    category = request.get_json()['category']
-    result = expensesController.get_by_category(category)
-    return result
+    id_user = request.args.get('id_user')
+    category = request.args.get('category')
+    result = expensesController.get_all_by_category(id_user, category)
+    return dumps(result)
 
 
-@app.route('/expense/add', methods=['POST'])
-def save_expense():
-    expensesController.save(request.get_json())
-    return "200"
+@app.route('/category/get_all/', methods=['GET'])
+def get_all_categories():
+    return dumps(categoriesController.get_all())
 
 
 if __name__ == "__main__":
