@@ -18,7 +18,6 @@ expenses = [
     {"id_user": "2", "amount": 1400, "category": "clothes", "date": "17/04/2020"},
     {"id_user": "2", "amount": 599, "category": "clothes", "date": "17/04/2020"},
     {"id_user": "3", "amount": 1000, "category": "clothes", "date": "14/04/2020"},
-
 ]
 
 collection.insert_many(expenses)
