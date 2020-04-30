@@ -18,6 +18,13 @@ def get_expenses():
     return dumps(result)
 
 
+@app.route('/expense/get_lastest/', methods=['GET'])
+def get_lastest_expenses():
+    id_user = request.args.get('id_user')
+    result = expensesController.get_lastest_user_expenses(id_user)
+    return dumps(result)
+
+
 @app.route('/expense/get_by/category/', methods=['GET'])
 def get_by_category():
     id_user = request.args.get('id_user')
