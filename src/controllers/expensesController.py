@@ -10,7 +10,7 @@ def get_all_by_category(id_user, category):
 
 
 def get_lastest_user_expenses(id_user):
-    return expensesService.search_by_user_id(id_user).limit(2)
+    return expensesService.search_by_user_id(id_user).limit(3)
 
 
 def get_total_expenses_amount_by_user(id_user):
