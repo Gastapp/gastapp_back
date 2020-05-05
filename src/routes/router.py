@@ -6,16 +6,6 @@ from bson.json_util import dumps
 app = Flask(__name__)
 
 
-from model.expense import Expense
-
-
-@app.route("/expense/add", methods=['POST'])
-def ayuda():
-    data = request.json
-    expensesController.add_expense(data)
-    return "200"
-
-
 @app.route("/")
 def hello():
     return "Hola mundo"
@@ -61,6 +51,13 @@ def get_total_by_category():
 @app.route('/category/get_all/', methods=['GET'])
 def get_all_categories():
     return dumps(categoriesController.get_all())
+
+
+@app.route("/expense/add", methods=['POST'])
+def ayuda():
+    data = request.json
+    expensesController.add_expense(data)
+    return "200"
 
 
 if __name__ == "__main__":
