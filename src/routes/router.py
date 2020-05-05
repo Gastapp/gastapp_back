@@ -6,6 +6,16 @@ from bson.json_util import dumps
 app = Flask(__name__)
 
 
+from model.expense import Expense
+
+
+@app.route("/expense/add", methods=['POST'])
+def ayuda():
+    data = request.json
+    expensesController.add_expense(data)
+    return "200"
+
+
 @app.route("/")
 def hello():
     return "Hola mundo"

@@ -2,4 +2,5 @@ from src.model import category
 
 
 def get_all():
-    return category.categories
+    return [c.value for c in category.Category]
+

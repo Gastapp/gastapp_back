@@ -1,3 +1,5 @@
+from pickle import dumps
+
 from src.services import config
 
 collection = config.db.expenses
@@ -8,7 +10,7 @@ def save(expense):
 
 
 def search_by_user_id(id_user):
-    return collection.find({"id_user": id_user})
+    return collection.find({"id_user": int(id_user)})
 
 
 def search_by_category(id_user, category):
@@ -23,5 +25,9 @@ def sum_amounts_by_user(id_user):
 def sum_amounts_by_category(id_user, category):
     pipeline = [{ "$match": { "id_user": id_user, "category": category} }, {"$group": { "_id": "null", "total": { "$sum": "$amount" } } }]
     return collection.aggregate(pipeline)
+
+
+def add_expense(expense):
+    collection.insert_one(expense.__dict__)
 
 
