@@ -53,10 +53,10 @@ def get_all_categories():
     return dumps(categoriesController.get_all())
 
 
-@app.route("/expense/add", methods=['POST'])
-def ayuda():
-    data = request.json
-    expensesController.add_expense(data)
+@app.route("/expense/add/", methods=['POST'])
+def add_expense():
+    data = request.get_json()
+    expensesController.add_expense(data["body"])
     return "200"
 
 

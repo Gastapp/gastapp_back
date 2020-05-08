@@ -6,3 +6,7 @@ class Category(Enum):
     food = "food"
     home_appliances = "home appliances"
 
+
+def getCategory(category):
+    category = category.replace(" ", "_")
+    return Category[category].value

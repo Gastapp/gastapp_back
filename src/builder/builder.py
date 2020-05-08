@@ -9,7 +9,7 @@ def build_user(data):
 
 
 def build_expense(data):
-    expense = Expense(data["id_user"], data["amount"], Category[data["category"]].value, datetime.now())
+    expense = Expense(data["id_user"], int(data["amount"]), Category[data["category"]].value, datetime.now())
 
     if 'description' in data:
         expense.description = data["description"]
