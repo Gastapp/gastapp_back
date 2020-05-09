@@ -1,5 +1,4 @@
 from flask import Flask, request
-from exceptions import ImputNotJsonException
 from src.controllers import expensesController, categoriesController
 from bson.json_util import dumps
 
