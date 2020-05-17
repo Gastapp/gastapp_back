@@ -1,3 +1,6 @@
+from pymongo.errors import DuplicateKeyError
+
+from exceptions.DuplicatedEmailException import DuplicatedEmailException
 from src.services import config
 import pymongo
 
@@ -11,4 +14,7 @@ def verify_user(email, password):
 
 
 def register(user):
-    collection.insert_one(user.__dict__)
+    try:
+        return collection.insert_one(user.__dict__)
+    except DuplicateKeyError:
+        raise DuplicatedEmailException()
