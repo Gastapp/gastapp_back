@@ -33,7 +33,6 @@ def get_total_expenses_amount_by_category(id_user, category):
 
 def add_expense(expense_data):
     expense = build_expense(expense_data)
-    print(expense.__dict__)
     expensesService.add_expense(expense)
 
 

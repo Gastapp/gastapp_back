@@ -1,11 +1,14 @@
 from datetime import datetime
-
+import hashlib
 from model.category import getCategory
 from model.expense import Expense
+from model.user import User
 
 
 def build_user(data):
-    pass
+    password = data["password"].encode('utf-8')
+    user = User(data["name"], data["email"], hashlib.sha256(password).hexdigest())
+    return user
 
 
 def build_expense(data):

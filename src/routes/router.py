@@ -1,4 +1,8 @@
-from flask import Flask, request
+from flask import Flask, request, json
+from werkzeug.exceptions import HTTPException
+
+from controllers import userController
+from exceptions.LoginException import LoginException
 from src.controllers import expensesController, categoriesController
 from bson.json_util import dumps
 
@@ -57,6 +61,30 @@ def add_expense():
     data = request.get_json()
     expensesController.add_expense(data["body"])
     return "200"
+
+
+@app.route("/login", methods=['POST'])
+def login():
+    data = request.get_json()
+    return userController.login(data)
+
+
+@app.route("/register", methods=['POST'])
+def register():
+    data = request.get_json()
+    return userController.register(data)
+
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    response = e.get_response()
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response
 
 
 if __name__ == "__main__":
