@@ -1,8 +1,6 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
-
 from controllers import userController
-from exceptions.LoginException import LoginException
 from src.controllers import expensesController, categoriesController
 from bson.json_util import dumps
 
@@ -16,38 +14,38 @@ def hello():
 
 @app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
-    id_user = request.args.get('id_user')
-    result = expensesController.get_all_user_expenses(id_user)
+    user_email = request.args.get('user_email')
+    result = expensesController.get_all_user_expenses(user_email)
     return dumps(result)
 
 
 @app.route('/expense/get_lastest/', methods=['GET'])
 def get_lastest_expenses():
-    id_user = request.args.get('id_user')
-    result = expensesController.get_lastest_user_expenses(id_user)
+    user_email = request.args.get('user_email')
+    result = expensesController.get_lastest_user_expenses(user_email)
     return dumps(result)
 
 
 @app.route('/expense/get_by/category/', methods=['GET'])
 def get_by_category():
-    id_user = request.args.get('id_user')
+    user_email = request.args.get('user_email')
     category = request.args.get('category')
-    result = expensesController.get_all_by_category(id_user, category)
+    result = expensesController.get_all_by_category(user_email, category)
     return dumps(result)
 
 
 @app.route('/expense/get_total_by/user/', methods=['GET'])
 def get_total_by_user():
-    id_user = request.args.get('id_user')
-    result = expensesController.get_total_expenses_amount_by_user(id_user)
+    user_email = request.args.get('user_email')
+    result = expensesController.get_total_expenses_amount_by_user(user_email)
     return dumps(result)
 
 
 @app.route('/expense/get_total_by/category/', methods=['GET'])
 def get_total_by_category():
-    id_user = request.args.get('id_user')
+    user_email = request.args.get('user_email')
     category = request.args.get('category')
-    result = expensesController.get_total_expenses_amount_by_category(id_user, category)
+    result = expensesController.get_total_expenses_amount_by_category(user_email, category)
     return dumps(result)
 
 
@@ -59,20 +57,22 @@ def get_all_categories():
 @app.route("/expense/add/", methods=['POST'])
 def add_expense():
     data = request.get_json()
+    print(data)
     expensesController.add_expense(data["body"])
     return "200"
 
 
-@app.route("/login", methods=['POST'])
+@app.route("/login/", methods=['POST'])
 def login():
     data = request.get_json()
-    return userController.login(data)
+    return userController.login(data), 200, {'Content-Type': 'application/json'}
 
 
-@app.route("/register", methods=['POST'])
+@app.route("/register/", methods=['POST'])
 def register():
     data = request.get_json()
-    return userController.register(data)
+    print(data)
+    return userController.register(data), 200, {'Content-Type': 'application/json'}
 
 
 @app.errorhandler(HTTPException)

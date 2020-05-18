@@ -10,11 +10,10 @@ def login(data):
     result = userService.verify_user(data["email"], hashlib.sha256(password).hexdigest())
     if not result:
         raise LoginException()
-    print(result)
     return dumps(result)
 
 
 def register(data):
     user = builder.build_user(data)
     userService.register(user)
-    return user.email
+    return dumps(user.__dict__)
