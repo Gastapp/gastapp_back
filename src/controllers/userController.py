@@ -7,7 +7,8 @@ from bson.json_util import dumps
 
 def login(data):
     password = data["password"].encode('utf-8')
-    result = userService.verify_user(data["email"], hashlib.sha256(password).hexdigest())
+    email = data["email"].lower()
+    result = userService.verify_user(email, hashlib.sha256(password).hexdigest())
     if not result:
         raise LoginException()
     return dumps(result)

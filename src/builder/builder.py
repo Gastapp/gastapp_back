@@ -7,7 +7,8 @@ from model.user import User
 
 def build_user(data):
     password = data["password"].encode('utf-8')
-    user = User(data["name"], data["email"], hashlib.sha256(password).hexdigest())
+    email = data["email"].lower()
+    user = User(data["name"], email, hashlib.sha256(password).hexdigest())
     return user
 
 

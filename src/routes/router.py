@@ -71,7 +71,6 @@ def login():
 @app.route("/register/", methods=['POST'])
 def register():
     data = request.get_json()
-    print(data)
     return userController.register(data), 200, {'Content-Type': 'application/json'}
 
 
