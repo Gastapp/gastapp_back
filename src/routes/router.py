@@ -1,7 +1,6 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
-from controllers import userController
-from src.controllers import expensesController, categoriesController
+from src.controllers import expensesController, categoriesController, userController, incomesController
 from bson.json_util import dumps
 
 app = Flask(__name__)
@@ -12,6 +11,16 @@ def hello():
     return "Hola mundo"
 
 
+#           EXPENSES         #
+
+
+@app.route("/expense/add/", methods=['POST'])
+def add_expense():
+    data = request.get_json()
+    expensesController.add_expense(data["body"])
+    return "200"
+
+
 @app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
     user_email = request.args.get('user_email')
@@ -19,10 +28,17 @@ def get_expenses():
     return dumps(result)
 
 
-@app.route('/expense/get_lastest/', methods=['GET'])
-def get_lastest_expenses():
+@app.route('/expense/get_latest/', methods=['GET'])
+def get_latest_expenses():
     user_email = request.args.get('user_email')
     result = expensesController.get_lastest_user_expenses(user_email)
+    return dumps(result)
+
+
+@app.route('/expense/get_total_by/user/', methods=['GET'])
+def get_total_expenses_by_user():
+    user_email = request.args.get('user_email')
+    result = expensesController.get_total_expenses_amount_by_user(user_email)
     return dumps(result)
 
 
@@ -34,13 +50,6 @@ def get_by_category():
     return dumps(result)
 
 
-@app.route('/expense/get_total_by/user/', methods=['GET'])
-def get_total_by_user():
-    user_email = request.args.get('user_email')
-    result = expensesController.get_total_expenses_amount_by_user(user_email)
-    return dumps(result)
-
-
 @app.route('/expense/get_total_by/category/', methods=['GET'])
 def get_total_by_category():
     user_email = request.args.get('user_email')
@@ -49,17 +58,46 @@ def get_total_by_category():
     return dumps(result)
 
 
-@app.route('/category/get_all/', methods=['GET'])
-def get_all_categories():
-    return dumps(categoriesController.get_all())
+#           INCOMES         #
 
-
-@app.route("/expense/add/", methods=['POST'])
-def add_expense():
+@app.route("/income/add/", methods=['POST'])
+def add_income():
     data = request.get_json()
-    print(data)
-    expensesController.add_expense(data["body"])
+    incomesController.add_income(data["body"])
     return "200"
+
+
+@app.route('/income/get_all/', methods=['GET'])
+def get_incomes():
+    user_email = request.args.get('user_email')
+    result = incomesController.get_all_user_incomes(user_email)
+    return dumps(result)
+
+
+@app.route('/income/get_latest/', methods=['GET'])
+def get_latest_incomes():
+    user_email = request.args.get('user_email')
+    result = incomesController.get_lastest_user_incomes(user_email)
+    return dumps(result)
+
+
+@app.route('/income/get_total_by/user/', methods=['GET'])
+def get_total_incomes_by_user():
+    user_email = request.args.get('user_email')
+    result = incomesController.get_total_incomes_amount_by_user(user_email)
+    return dumps(result)
+
+#           CATEGORY         #
+
+
+@app.route('/category/expense/get_all/', methods=['GET'])
+def get_all_expense_categories():
+    return dumps(categoriesController.get_all_for_expenses())
+
+
+@app.route('/category/income/get_all/', methods=['GET'])
+def get_all_income_categories():
+    return dumps(categoriesController.get_all_for_incomes())
 
 
 @app.route("/login/", methods=['POST'])

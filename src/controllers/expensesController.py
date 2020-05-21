@@ -1,7 +1,7 @@
 import pymongo
 
 from builder.builder import build_expense
-from model.category import getCategory
+from model.category.expense_category import get_expense_category
 from src.services import expensesService
 
 
@@ -10,7 +10,7 @@ def get_all_user_expenses(email_user):
 
 
 def get_all_by_category(user_email, category):
-    category = getCategory(category)
+    category = get_expense_category(category)
     return expensesService.search_by_category(user_email, category).sort('date', 1)
 
 
@@ -23,12 +23,12 @@ def get_total_expenses_amount_by_user(user_email):
 
 
 def get_total_expenses_amount_by_category(user_email, category):
-    category = getCategory(category)
+    category = get_expense_category(category)
     return expensesService.sum_amounts_by_category(user_email, category)
 
 
 def add_expense(expense_data):
     expense = build_expense(expense_data)
-    expensesService.add_expense(expense)
+    expensesService.save(expense)
 
 
