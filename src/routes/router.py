@@ -5,11 +5,6 @@ from bson.json_util import dumps
 app = Flask(__name__)
 
 
-@app.route("/")
-def hello():
-    return "Hola mundo"
-
-
 @app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
     id_user = request.args.get('id_user')

@@ -1,4 +1,4 @@
-from datetime import datetime
+from dateutil import parser
 
 from model.category import getCategory
 from model.expense import Expense
@@ -9,7 +9,7 @@ def build_user(data):
 
 
 def build_expense(data):
-    expense = Expense(data["id_user"], int(data["amount"]), getCategory(data["category"]), datetime.fromisoformat(data["date"][:-1]))
+    expense = Expense(data["id_user"], int(data["amount"]), getCategory(data["category"]), parser.isoparse(data["date"][:-1]))
 
     if 'description' in data:
         expense.description = data["description"]
