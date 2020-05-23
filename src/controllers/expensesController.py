@@ -21,6 +21,8 @@ def get_lastest_user_expenses(user_email):
 def get_total_expenses_amount_by_user(user_email):
     cursor = expensesService.sum_amounts_by_user(user_email)
     result = list(cursor)
+    if not result:
+        return 0
     return result[0]['total']
 
 

@@ -16,7 +16,7 @@ def build_user(data):
 
 
 def build_expense(data):
-    expense = Expense(data["id_user"], int(data["amount"]), get_expense_category(data["category"]), parser.isoparse(data["date"][:-1]))
+    expense = Expense(data["user_email"], int(data["amount"]), get_expense_category(data["category"]), parser.isoparse(data["date"][:-1]))
 
     if 'description' in data:
         expense.description = data["description"]
@@ -25,7 +25,7 @@ def build_expense(data):
 
 
 def build_income(data):
-    income = Income(data["user_email"], int(data["amount"]), get_income_category(data["category"]), datetime.now())
+    income = Income(data["user_email"], int(data["amount"]), get_income_category(data["category"]), parser.isoparse(data["date"][:-1]))
 
     if 'description' in data:
         income.description = data["description"]

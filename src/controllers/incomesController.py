@@ -15,6 +15,8 @@ def get_lastest_user_incomes(user_email):
 def get_total_incomes_amount_by_user(user_email):
     cursor = incomesService.sum_amounts_by_user(user_email)
     result = list(cursor)
+    if not result:
+        return 0
     return result[0]['total']
 
 
