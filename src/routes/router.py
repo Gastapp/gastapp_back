@@ -39,7 +39,7 @@ def get_latest_expenses():
 def get_total_expenses_by_user():
     user_email = request.args.get('user_email')
     result = expensesController.get_total_expenses_amount_by_user(user_email)
-    return dumps(result)
+    return dumps({"total": result}), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/expense/get_by/category/', methods=['GET'])
@@ -85,7 +85,7 @@ def get_latest_incomes():
 def get_total_incomes_by_user():
     user_email = request.args.get('user_email')
     result = incomesController.get_total_incomes_amount_by_user(user_email)
-    return dumps(result)
+    return dumps({"total": result}), 200, {'Content-Type': 'application/json'}
 
 #           CATEGORY         #
 
