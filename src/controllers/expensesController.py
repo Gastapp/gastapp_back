@@ -26,7 +26,6 @@ def get_total_expenses_amount_by_user(user_email):
     return result[0]['total']
 
 
-
 def get_total_expenses_amount_by_category(user_email, category):
     category = get_expense_category(category)
     return expensesService.sum_amounts_by_category(user_email, category)
@@ -35,5 +34,13 @@ def get_total_expenses_amount_by_category(user_email, category):
 def add_expense(expense_data):
     expense = build_expense(expense_data)
     expensesService.save(expense)
+
+
+def edit_expense(expense_data):
+    print(expense_data)
+    expense = build_expense(expense_data)
+    expense_id = expense_data["id"]
+    expensesService.update(expense_id, expense)
+
 
 
