@@ -25,3 +25,8 @@ def add_income(income_data):
     incomesService.save(income)
 
 
+def edit_income(income_data):
+    income = build_income(income_data)
+    income_id = income_data["id"]
+    incomesService.update(income_id, income)
+

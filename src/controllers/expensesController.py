@@ -37,7 +37,6 @@ def add_expense(expense_data):
 
 
 def edit_expense(expense_data):
-    print(expense_data)
     expense = build_expense(expense_data)
     expense_id = expense_data["id"]
     expensesService.update(expense_id, expense)

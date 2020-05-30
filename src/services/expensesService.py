@@ -16,12 +16,12 @@ def search_by_category(user_email, category):
 
 
 def sum_amounts_by_user(user_email):
-    pipeline = [{ "$match": { "user_email": user_email } }, {"$group": { "_id": "null", "total": { "$sum": "$amount" } } }]
+    pipeline = [{"$match": {"user_email": user_email}}, {"$group": {"_id": "null", "total": {"$sum": "$amount"}}}]
     return collection.aggregate(pipeline)
 
 
 def sum_amounts_by_category(user_email, category):
-    pipeline = [{ "$match": { "user_email": user_email, "category": category} }, {"$group": { "_id": "null", "total": { "$sum": "$amount" } } }]
+    pipeline = [{"$match": {"user_email": user_email, "category": category} }, {"$group": { "_id": "null", "total": {"$sum": "$amount"}}}]
     return collection.aggregate(pipeline)
 
 
@@ -32,7 +32,5 @@ def save(expense):
 def update(expense_id, expense):
     collection.find_one_and_update(
         {"_id": ObjectId(expense_id)},
-        {"$set":
-             expense.__dict__
-         }, upsert=True
-    )
+        {"$set": expense.__dict__},
+        upsert=True)

@@ -66,10 +66,18 @@ def get_total_by_category():
 
 #           INCOMES         #
 
+
 @app.route("/income/add/", methods=['POST'])
 def add_income():
     data = request.get_json()
     incomesController.add_income(data["body"])
+    return "200"
+
+
+@app.route('/income/edit_expense/', methods=['POST'])
+def edit_income():
+    data = request.get_json()
+    incomesController.edit_income(data["body"])
     return "200"
 
 
