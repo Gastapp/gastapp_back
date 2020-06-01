@@ -1,3 +1,5 @@
+from bson import ObjectId
+
 from src.services import config
 
 collection = config.db.incomes
@@ -16,3 +18,12 @@ def save(income):
     collection.insert_one(income.__dict__)
 
 
+def update(income_id, income):
+    collection.find_one_and_update(
+        {"_id": ObjectId(income_id)},
+        {"$set": income.__dict__},
+        upsert=True)
+
+
+def delete(income_id):
+    collection.delete_one({"_id": ObjectId(income_id)})

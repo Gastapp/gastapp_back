@@ -21,6 +21,20 @@ def add_expense():
     return "200"
 
 
+@app.route('/expense/edit_expense/', methods=['POST'])
+def edit_expense():
+    data = request.get_json()
+    expensesController.edit_expense(data["body"])
+    return "200"
+
+
+@app.route('/expense/delete/', methods=['POST'])
+def delete_expense():
+    data = request.get_json()
+    expensesController.delete_expense(data["body"])
+    return "200"
+
+
 @app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
     user_email = request.args.get('user_email')
@@ -57,13 +71,27 @@ def get_total_by_category():
     result = expensesController.get_total_expenses_amount_by_category(user_email, category)
     return dumps(result)
 
-
 #           INCOMES         #
+
 
 @app.route("/income/add/", methods=['POST'])
 def add_income():
     data = request.get_json()
     incomesController.add_income(data["body"])
+    return "200"
+
+
+@app.route('/income/edit_expense/', methods=['POST'])
+def edit_income():
+    data = request.get_json()
+    incomesController.edit_income(data["body"])
+    return "200"
+
+
+@app.route('/income/delete/', methods=['POST'])
+def delete_income():
+    data = request.get_json()
+    incomesController.delete_income(data["body"])
     return "200"
 
 
