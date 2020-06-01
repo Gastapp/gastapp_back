@@ -42,4 +42,8 @@ def edit_expense(expense_data):
     expensesService.update(expense_id, expense)
 
 
+def delete_expense(expense_data):
+    expense_id = expense_data["id"]
+    expensesService.delete(expense_id)
+
 

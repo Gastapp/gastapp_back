@@ -34,3 +34,7 @@ def update(expense_id, expense):
         {"_id": ObjectId(expense_id)},
         {"$set": expense.__dict__},
         upsert=True)
+
+
+def delete(expense_id):
+    collection.delete_one({"_id": ObjectId(expense_id)})

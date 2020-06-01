@@ -30,3 +30,7 @@ def edit_income(income_data):
     income_id = income_data["id"]
     incomesService.update(income_id, income)
 
+
+def delete_income(income_data):
+    income_id = income_data["id"]
+    incomesService.delete(income_id)

@@ -28,6 +28,13 @@ def edit_expense():
     return "200"
 
 
+@app.route('/expense/delete/', methods=['POST'])
+def delete_expense():
+    data = request.get_json()
+    expensesController.delete_expense(data["body"])
+    return "200"
+
+
 @app.route('/expense/get_all/', methods=['GET'])
 def get_expenses():
     user_email = request.args.get('user_email')
@@ -78,6 +85,13 @@ def add_income():
 def edit_income():
     data = request.get_json()
     incomesController.edit_income(data["body"])
+    return "200"
+
+
+@app.route('/income/delete/', methods=['POST'])
+def delete_income():
+    data = request.get_json()
+    incomesController.delete_income(data["body"])
     return "200"
 
 

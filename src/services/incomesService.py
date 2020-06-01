@@ -23,3 +23,7 @@ def update(income_id, income):
         {"_id": ObjectId(income_id)},
         {"$set": income.__dict__},
         upsert=True)
+
+
+def delete(income_id):
+    collection.delete_one({"_id": ObjectId(income_id)})
