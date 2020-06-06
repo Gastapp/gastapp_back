@@ -1,6 +1,7 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
-from src.controllers import expensesController, categoriesController, userController, incomesController
+
+from src.controllers import expensesController, categoriesController, userController, incomesController, accountsController
 from bson.json_util import dumps
 
 app = Flask(__name__)
@@ -124,6 +125,7 @@ def get_total_incomes_by_user():
     result = incomesController.get_total_incomes_amount_by_user(user_email)
     return dumps({"total": result}), 200, {'Content-Type': 'application/json'}
 
+
 #           CATEGORY         #
 
 
@@ -135,6 +137,22 @@ def get_all_expense_categories():
 @app.route('/category/income/get_all/', methods=['GET'])
 def get_all_income_categories():
     return dumps(categoriesController.get_all_for_incomes())
+
+
+#           ACCOUNT         #
+
+
+@app.route('/account/expense/get_all/', methods=['GET'])
+def get_all_expense_accounts():
+    return dumps(accountsController.get_all_for_expenses())
+
+
+@app.route('/account/income/get_all/', methods=['GET'])
+def get_all_income_accounts():
+    return dumps(accountsController.get_all_for_incomes())
+
+
+#           USER         #
 
 
 @app.route("/login/", methods=['POST'])
