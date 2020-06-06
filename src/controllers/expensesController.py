@@ -1,6 +1,6 @@
 import pymongo
 
-from builder.builder import build_expense
+from builder.builder import build_expense, build_date
 from model.category.expense_category import get_expense_category
 from src.services import expensesService
 
@@ -47,3 +47,20 @@ def delete_expense(expense_data):
     expensesService.delete(expense_id)
 
 
+def filter_expenses(user_email, filter_data):
+    if "category" in filter_data:
+        category = filter_data["category"]
+    else:
+        category = {"$exists": True}
+
+    if "date" in filter_data:
+        date = {"$gte": build_date(filter_data["date"]["from"]), "$lt": build_date(filter_data["date"]["to"])}
+    else:
+        date = {"$exists": True}
+
+    if "account" in filter_data:
+        account = filter_data["account"]
+    else:
+        account = {"$exists": True}
+
+    return expensesService.filter(user_email, category, date, account)

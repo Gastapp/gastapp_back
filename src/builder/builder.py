@@ -31,3 +31,7 @@ def build_income(data):
         income.description = data["description"]
 
     return income
+
+
+def build_date(date):
+    return parser.isoparse(date[:-1])

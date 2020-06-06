@@ -49,6 +49,15 @@ def get_latest_expenses():
     return dumps(result)
 
 
+@app.route('/expense/filter/', methods=['POST'])
+def filter_expenses():
+    data = request.get_json()
+    user_email = data["body"]["user_email"]
+    filter_data = data["body"]["filter"]
+    result = expensesController.filter_expenses(user_email, filter_data)
+    return dumps(result), 200, {'Content-Type': 'application/json'}
+
+
 @app.route('/expense/get_total_by/user/', methods=['GET'])
 def get_total_expenses_by_user():
     user_email = request.args.get('user_email')

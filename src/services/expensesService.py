@@ -1,7 +1,4 @@
-from pickle import dumps
-
 from bson import ObjectId
-
 from src.services import config
 
 collection = config.db.expenses
@@ -21,7 +18,7 @@ def sum_amounts_by_user(user_email):
 
 
 def sum_amounts_by_category(user_email, category):
-    pipeline = [{"$match": {"user_email": user_email, "category": category} }, {"$group": { "_id": "null", "total": {"$sum": "$amount"}}}]
+    pipeline = [{"$match": {"user_email": user_email, "category": category}}, {"$group": {"_id": "null", "total": {"$sum": "$amount"}}}]
     return collection.aggregate(pipeline)
 
 
@@ -38,3 +35,12 @@ def update(expense_id, expense):
 
 def delete(expense_id):
     collection.delete_one({"_id": ObjectId(expense_id)})
+
+
+def filter(user_email, category, date, account):
+    pipeline = [{"$match": {
+                     "user_email": user_email,
+                     "category": {"$in": category},
+                     "date": date,
+                }}]
+    return collection.aggregate(pipeline)
