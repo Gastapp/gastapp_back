@@ -119,6 +119,15 @@ def get_latest_incomes():
     return dumps(result)
 
 
+@app.route('/income/filter/', methods=['POST'])
+def filter_incomes():
+    data = request.get_json()
+    user_email = data["body"]["user_email"]
+    filter_data = data["body"]["filter"]
+    result = incomesController.filter_expenses(user_email, filter_data)
+    return dumps(result), 200, {'Content-Type': 'application/json'}
+
+
 @app.route('/income/get_total_by/user/', methods=['GET'])
 def get_total_incomes_by_user():
     user_email = request.args.get('user_email')

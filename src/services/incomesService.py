@@ -27,3 +27,13 @@ def update(income_id, income):
 
 def delete(income_id):
     collection.delete_one({"_id": ObjectId(income_id)})
+
+
+def filter(user_email, category, date, account):
+    pipeline = [{"$match": {
+                     "user_email": user_email,
+                     "category": {"$in": category},
+                     "date": date,
+                     "account": account,
+                }}]
+    return collection.aggregate(pipeline)

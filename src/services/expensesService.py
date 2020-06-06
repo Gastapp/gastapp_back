@@ -42,5 +42,6 @@ def filter(user_email, category, date, account):
                      "user_email": user_email,
                      "category": {"$in": category},
                      "date": date,
+                     "account": account,
                 }}]
     return collection.aggregate(pipeline)
