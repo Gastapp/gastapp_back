@@ -124,7 +124,7 @@ def filter_incomes():
     data = request.get_json()
     user_email = data["body"]["user_email"]
     filter_data = data["body"]["filter"]
-    result = incomesController.filter_expenses(user_email, filter_data)
+    result = incomesController.filter_incomes(user_email, filter_data)
     return dumps(result), 200, {'Content-Type': 'application/json'}
 
 

@@ -36,7 +36,7 @@ def delete_income(income_data):
     incomesService.delete(income_id)
 
 
-def filter_expenses(user_email, filter_data):
+def filter_incomes(user_email, filter_data):
     if "category" in filter_data:
         category = filter_data["category"]
     else:

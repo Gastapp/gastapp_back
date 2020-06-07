@@ -1,3 +1,4 @@
+import pymongo
 from bson import ObjectId
 from src.services import config
 
@@ -38,10 +39,13 @@ def delete(expense_id):
 
 
 def filter(user_email, category, date, account):
-    pipeline = [{"$match": {
-                     "user_email": user_email,
-                     "category": {"$in": category},
-                     "date": date,
-                     "account": account,
-                }}]
+    pipeline = [{
+        "$match": {
+             "user_email": user_email,
+             "category": category,
+             "date": date,
+             "account": account,
+        }},
+        {"$sort": {"date": pymongo.DESCENDING}}
+    ]
     return collection.aggregate(pipeline)
