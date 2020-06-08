@@ -6,6 +6,7 @@ from model.accounts.expense_account import get_expense_account
 from model.accounts.income_account import get_income_account
 from model.expense import Expense
 from model.income import Income
+from model.types import get_type
 from model.user import User
 
 
@@ -22,7 +23,8 @@ def build_expense(data):
         int(data["amount"]),
         get_expense_category(data["category"]),
         get_expense_account(data["account"]),
-        parser.isoparse(data["date"][:-1])
+        parser.isoparse(data["date"][:-1]),
+        get_type(data["type"])
     )
 
     if 'description' in data:
@@ -37,7 +39,8 @@ def build_income(data):
         int(data["amount"]),
         get_income_category(data["category"]),
         get_income_account(data["account"]),
-        parser.isoparse(data["date"][:-1])
+        parser.isoparse(data["date"][:-1]),
+        get_type(data["type"])
     )
 
     if 'description' in data:
