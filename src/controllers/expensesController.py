@@ -53,4 +53,6 @@ def filter_expenses(user_email, filter_data):
     else:
         account = {"$exists": True}
 
-    return expensesService.filter(user_email, category, date, account)
+    etype = filter_data["type"]
+
+    return expensesService.filter(user_email, category, date, account, etype)

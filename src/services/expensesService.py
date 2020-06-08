@@ -38,13 +38,14 @@ def delete(expense_id):
     collection.delete_one({"_id": ObjectId(expense_id)})
 
 
-def filter(user_email, category, date, account):
+def filter(user_email, category, date, account, etype):
     pipeline = [{
         "$match": {
              "user_email": user_email,
              "category": category,
              "date": date,
              "account": account,
+             "etype": etype
         }},
         {"$sort": {"date": pymongo.DESCENDING}}
     ]

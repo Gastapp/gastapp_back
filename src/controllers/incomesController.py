@@ -53,4 +53,6 @@ def filter_incomes(user_email, filter_data):
     else:
         account = {"$exists": True}
 
-    return incomesService.filter(user_email, category, date, account)
+    itype = filter_data["type"]
+
+    return incomesService.filter(user_email, category, date, account, itype)
