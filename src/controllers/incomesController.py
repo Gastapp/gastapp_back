@@ -1,7 +1,7 @@
 import pymongo
 
-from builder.builder import build_income
 from model.types import Type
+from builder.builder import build_income, build_date
 from src.services import incomesService
 
 
@@ -35,3 +35,22 @@ def edit_income(income_data):
 def delete_income(income_data):
     income_id = income_data["id"]
     incomesService.delete(income_id)
+
+
+def filter_incomes(user_email, filter_data):
+    if "category" in filter_data:
+        category = filter_data["category"]
+    else:
+        category = {"$exists": True}
+
+    if "date" in filter_data:
+        date = {"$gte": build_date(filter_data["date"]["from"]), "$lt": build_date(filter_data["date"]["to"])}
+    else:
+        date = {"$exists": True}
+
+    if "account" in filter_data:
+        account = filter_data["account"]
+    else:
+        account = {"$exists": True}
+
+    return incomesService.filter(user_email, category, date, account)
