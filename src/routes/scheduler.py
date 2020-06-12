@@ -45,7 +45,6 @@ def add_monthly_incomes():
 def start_scheduler():
     #scheduler.add_job(add_monthly_expenses, 'interval', seconds=10)
     #scheduler.add_job(add_monthly_incomes, 'interval', seconds=10)
-    #scheduler.add_job(add_monthly_expenses, 'cron', day='9')
-    #scheduler.add_job(add_monthly_incomes, 'cron', day='9')
-    scheduler.add_job(add_monthly_expenses, 'cron', minute='24')
+    scheduler.add_job(add_monthly_expenses, 'cron', day='1')
+    scheduler.add_job(add_monthly_incomes, 'cron', day='1')
     scheduler.start()
