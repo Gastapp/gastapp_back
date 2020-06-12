@@ -27,6 +27,10 @@ def save(expense):
     collection.insert_one(expense.__dict__)
 
 
+def save_all(expenses):
+    collection.insert_many(expenses)
+
+
 def update(expense_id, expense):
     collection.find_one_and_update(
         {"_id": ObjectId(expense_id)},

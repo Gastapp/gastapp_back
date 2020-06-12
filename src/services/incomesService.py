@@ -19,6 +19,10 @@ def save(income):
     collection.insert_one(income.__dict__)
 
 
+def save_all(incomes):
+    collection.insert_many(incomes)
+
+
 def update(income_id, income):
     collection.find_one_and_update(
         {"_id": ObjectId(income_id)},

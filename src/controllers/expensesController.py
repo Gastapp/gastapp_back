@@ -56,3 +56,11 @@ def filter_expenses(user_email, filter_data):
     etype = filter_data["type"]
 
     return expensesService.filter(user_email, category, date, account, etype)
+
+
+def find_all_monthly_expenses():
+    return filter_expenses({"$exists": True}, {"type": Type.mensual.value})
+
+
+def save_all(expenses):
+    expensesService.save_all(expenses)

@@ -1,6 +1,7 @@
 from flask import Flask, request, json
 from werkzeug.exceptions import HTTPException
 
+from routes.scheduler import start_scheduler
 from src.controllers import expensesController, categoriesController, userController, incomesController, accountsController, typesController
 from bson.json_util import dumps
 
@@ -183,4 +184,5 @@ def handle_exception(e):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    start_scheduler()
+    app.run(use_reloader=False, debug=True, host='0.0.0.0')

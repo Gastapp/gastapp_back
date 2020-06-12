@@ -56,3 +56,11 @@ def filter_incomes(user_email, filter_data):
     itype = filter_data["type"]
 
     return incomesService.filter(user_email, category, date, account, itype)
+
+
+def find_all_monthly_incomes():
+    return filter_incomes({"$exists": True}, {"type": Type.mensual.value})
+
+
+def save_all(expenses):
+    incomesService.save_all(expenses)
