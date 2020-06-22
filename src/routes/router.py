@@ -41,7 +41,7 @@ def delete_expense():
 def get_expenses():
     user_email = request.args.get('user_email')
     result = expensesController.get_all_user_expenses(user_email)
-    return dumps(result)
+    return dumps(result), 200, {'Content-Type': 'application/json'}
 
 
 @app.route('/expense/get_latest/', methods=['GET'])

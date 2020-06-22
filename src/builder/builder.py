@@ -13,7 +13,8 @@ from model.user import User
 def build_user(data):
     password = data["password"].encode('utf-8')
     email = data["email"].lower()
-    user = User(data["name"], email, hashlib.sha256(password).hexdigest())
+    name = data["name"]
+    user = User(name, email, hashlib.sha256(password).hexdigest())
     return user
 
 

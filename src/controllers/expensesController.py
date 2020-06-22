@@ -64,3 +64,4 @@ def find_all_monthly_expenses():
 
 def save_all(expenses):
     expensesService.save_all(expenses)
+

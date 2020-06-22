@@ -17,4 +17,5 @@ def register(user):
     try:
         return collection.insert_one(user.__dict__)
     except DuplicateKeyError:
+        print("ayuda por favor")
         raise DuplicatedEmailException()
